@@ -412,28 +412,6 @@
 }
 
 
- /* Icons */
-.svg-icon{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    margin: auto;
-    filter: invert(100%) sepia(72%) saturate(724%) hue-rotate(179deg) brightness(103%) contrast(96%);
-    z-index: 0;
-}
-@media screen and (max-width: 600px) and (orientation:portrait)
-{
-    .svg-icon{
-        transform: scale(4);
-    }
-}
-@media screen and (min-width: 600px) and (max-width: 992px) and (orientation:portrait)
-{
-    .svg-icon{
-        transform: scale(3);
-    }
-}
-
 /* Images */
 .game-box-art{
     height: 15vh;

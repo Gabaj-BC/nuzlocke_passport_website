@@ -76,6 +76,20 @@ h3 {
     color: var(--background-colour-dark);
 }
 
+.text-coloured {
+    color: var(--primary-colour);
+}
+
+.hyperlink {
+   font-weight: bold;
+    color: var(--background-colour-dark);
+}
+
+.hyperlink:hover {
+    text-decoration: underline;
+    color: var(--accent-colour-light);
+}
+
 /* SVG Elements */
 .svg-container{
     height: 100%;
@@ -91,6 +105,29 @@ h3 {
     justify-content: center;
     align-content: center;
     margin: auto;
+    filter: invert(100%) sepia(72%) saturate(724%) hue-rotate(179deg) brightness(103%) contrast(96%);
+    z-index: 0;
+}
+@media screen and (max-width: 600px) and (orientation:portrait)
+{
+    .svg-icon{
+        transform: scale(4);
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 992px) and (orientation:portrait)
+{
+    .svg-icon{
+        transform: scale(3);
+    }
+}
+
+/* Specific SVG Icons */
+.info-icon{
+    height: 2vh;
+}
+
+.info-icon:hover{
+    filter: brightness(0) saturate(100%) invert(79%) sepia(28%) saturate(826%) hue-rotate(176deg) brightness(106%) contrast(103%);
 }
 
 /* Page Anchors */
