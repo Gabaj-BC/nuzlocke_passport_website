@@ -52,3 +52,24 @@
 #import-tooltiptext{
   top: 100%;
 }
+
+.info-tooltiptext{
+  transform: translate(0%, -100%);
+  max-width: 15vw;
+}
+
+#basic-tooltiptext{
+  left: 40% !important;
+}
+
+#calculator-tooltiptext{
+  left: 55% !important;
+}
+
+#hardcore-tooltiptext{
+  left: 70% !important;
+}
+
+#deathless-tooltiptext{
+  left: 85% !important;
+}
