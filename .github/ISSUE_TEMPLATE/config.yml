@@ -1,0 +1,22 @@
+blank_issues_enabled: false
+issue_templates:
+  - name: "Bug Report"
+    description: "Report a bug on the site"
+    title: "[BUG]: "
+    labels: ["bug"]
+    body: "./ISSUE_TEMPLATE/bug_report.md"
+  - name: "Feature Request"
+    description: "Propose a new feature or improvement."
+    title: "[FEATURE]: "
+    labels: ["enhancement", "feature"]
+    body: "./ISSUE_TEMPLATE/feature_request.md"
+  - name: "Documentation"
+    description: "Suggest updates or additions to the documentation."
+    title: "[DOCS]: "
+    labels: ["documentation"]
+    body: "./ISSUE_TEMPLATE/documentation.md"
+  - name: "General Report"
+    description: "Provide general feedback or inquiries."
+    title: "[GENERAL]: "
+    labels: ["general", "feedback"]
+    body: "./ISSUE_TEMPLATE/general_report.md"
