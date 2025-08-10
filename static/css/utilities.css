@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+
+:root{
+    --primary-colour: #0091c9;
+    --accent-colour-light: #a7e6ff;
+    --background-colour-light: #f5f7fa;
+    --background-colour-dark: #444444;
+    --icon-colour-light: #ebeff0;
+    --icon-colour-dark: #94a4a5;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+sup {
+    font-size:xx-small;
+    vertical-align:super;
+}
+
+#superscript-1{
+    font-size: 0.7rem;
+    color: var(--icon-colour-light);
+}
+
+b {
+    font-weight: bold;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--background-colour-light);
+    color: #333;
+    line-height: 1.6;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    color: var(--icon-colour-light);
+    text-decoration: none;
+}
+
+th {
+    color: var(--icon-colour-light);
+}
+
+h1 {
+    color: var(--icon-colour-light);
+}
+
+h2 {
+    color: var(--icon-colour-light);
+}
+
+h3 {
+    color: var(--icon-colour-light);
+}
+
+
+/* Text colors */
+
+.text-primary {
+    color: var(--icon-colour-light);
+}
+
+.text-secondary {
+    color: var(--background-colour-dark);
+}
+
+/* SVG Elements */
+.svg-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+}
+
+.svg-icon{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+}
+
+/* Page Anchors */
+.page-anchor{
+    scroll-margin-top: 18vh;
+}
+
+/* Table Elements */
+.title-th{
+    width: 15vw;
+}
+
+.img-th{
+    width: 25vw;
+}
+
+.ball-th{
+    width: 15vw;
+}

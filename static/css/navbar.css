@@ -1,0 +1,98 @@
+.navbar{
+    position: absolute;
+    height: 7vh;
+}
+
+nav {
+	background-color: #333;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 7vh;
+    padding-top: 0;
+    margin-top: 0;
+    padding-right: 15vw;
+	z-index: 1000
+
+}
+
+nav ul {
+	padding: 0;
+    margin: 0;
+	list-style: none;
+	position: relative;
+	}
+
+nav ul li {
+	display:inline-block;
+	background-color: #333;
+	}
+
+nav a {
+	display:block;
+	padding:0 1vw;
+	color: var(--icon-colour-light);
+	font-size: 1.25rem;
+	line-height: 7vh;
+	text-decoration:none;
+	margin-top: auto;
+	margin-bottom: auto;
+	height: 100%;
+}
+
+nav a:hover {
+	background-color: rgba(0, 0, 0, 0.4);
+    color: var(--accent-colour-light);
+}
+
+/* First level Dropdown */
+nav ul ul li {
+	width: fit-content;
+	min-width: 10vw;
+	float: none;
+	display: list-item;
+	position: relative;
+}
+
+/* Second, Third and more levels	*/
+nav ul ul ul li {
+	position: relative;
+	top:-7vh;
+	left:10vw;
+}
+
+/* Hide Dropdowns by Default */
+nav ul ul {
+	display: none;
+	position: absolute;
+	top: 7vh; /* the height of the main nav */
+}
+
+/* Display Dropdowns on Hover */
+nav ul li:hover > ul {
+	display:inherit;
+}
+
+#navbar-logo-container{
+    height: 7vh;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-logo {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    image-rendering: high-quality;
+    height: 80%;
+    padding: 0 0.5vw;
+}
+
+/* Icons */
+.navbar-svg{
+	height: 5vh;
+	margin-top: auto;
+	margin-bottom: auto;
+}

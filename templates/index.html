@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../static/css/utilities.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <link rel="stylesheet" href="../static/css/collapsible.css">
+    <link rel="stylesheet" href="../static/css/buttons.css">
+    <link rel="stylesheet" href="../static/css/passport_images.css">
+    <link rel="stylesheet" href="../static/css/input_fields.css">
+    <link rel="stylesheet" href="../static/css/tooltips.css">
+    <link rel="stylesheet" href="../static/css/radio_buttons.css">
+    <title>Nuzlocke Passport</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/logo/logo_square.png">
+</head>
+
+<body id='main'>
+    <a class="page-anchor" id="navbar_anchor"></a>
+    <header class='hero'>
+        <div id="navbar">
+            <a href="#navbar_anchor" id="navbar-logo-container">
+                <img class="navbar-logo" src="../static/images/logo/logo_with_text.png" alt="">
+            </a>
+            <nav>
+                <ul style="height: 100%;">
+                    <li style="height: 100%;" class="tooltip">
+                        <span class="tooltiptext" id="nav-tooltiptext">Page Navigation</span>
+                        <a href="#">
+                            <div class="svg-container">
+                                <img class="svg-icon navbar-svg" src="../static/images/svg/compass.svg" alt="">
+                            </div>
+                        </a>
+
+                        <!-- First Tier Drop Down -->
+                        <ul>
+                            <li><a href="#gen1-anchor" onclick="openCollapsible('gen1-collapsible-button')">Generation 1</a></li>
+                            <li><a href="#gen2-anchor" onclick="openCollapsible('gen2-collapsible-button')">Generation 2</a></li>
+                            <li><a href="#gen3-anchor" onclick="openCollapsible('gen3-collapsible-button')">Generation 3</a></li>
+                            <li><a href="#gen4-anchor" onclick="openCollapsible('gen4-collapsible-button')">Generation 4</a></li>
+                            <li><a href="#gen5-anchor" onclick="openCollapsible('gen5-collapsible-button')">Generation 5</a></li>
+                            <li><a href="#gen6-anchor" onclick="openCollapsible('gen6-collapsible-button')">Generation 6</a></li>
+                            <li><a href="#gen7-anchor" onclick="openCollapsible('gen7-collapsible-button')">Generation 7</a></li>
+                            <li><a href="#gen8-anchor" onclick="openCollapsible('gen8-collapsible-button')">Generation 8</a></li>
+                            <li><a href="#gen9-anchor" onclick="openCollapsible('gen9-collapsible-button')">Generation 9</a></li>
+                            <li><a href="#spinoffs-anchor" onclick="openCollapsible('spinoffs-collapsible-button')">Spinoffs</a></li>
+                            <li><a href="#romhacks-anchor" onclick="openCollapsible('romhacks-collapsible-button')">ROM Hacks</a></li>
+                        </ul>
+                    </li>
+
+                    <li style="height: 100%;" class="tooltip">
+                        <span class="tooltiptext" id="file-export-tooltiptext">Export Full Passport</span>
+                        <a href="#" onclick="exportFullPassport()">
+                            <div class="svg-container">
+                                <img class="svg-icon navbar-svg" src="../static/images/svg/import-export.svg" alt="">
+                            </div>
+                        </a>
+                    </li>
+
+                    <li style="height: 100%;" class="tooltip">
+                        <span class="tooltiptext" id="img-export-tooltiptext">Export Trainer Card</span>
+                        <a href="#" onclick="exportTrainerCardImg()">
+                            <div class="svg-container">
+                                <img class="svg-icon navbar-svg" src="../static/images/svg/image-download.svg" alt="">
+                            </div>
+                        </a>
+                    </li>
+
+                    <li style="height: 100%;" class="tooltip">
+                        <span class="tooltiptext" id="upload-tooltiptext">Import Passport</span>
+                        <a href="#" onclick="exportTrainerCardImg()">
+                            <div class="svg-container">
+                                <img class="svg-icon navbar-svg" src="../static/images/svg/cloud-computing.svg" alt="">
+                            </div>
+                        </a>
+
+                        <!-- First Tier Drop Down -->
+                        <ul>
+                            <li style="width: 16vw">
+                                <div style="justify-content: center; width: 90%; margin-left: auto; margin-right: auto">
+                                    <input type="file" class="button-1" id="import_passport_file_select">
+                                </div>
+                            </li>
+                            <li style="width: 16vw">
+                                <a class="button-wrapper tooltip">
+                                    <span class="tooltiptext" id="import-tooltiptext">!!! Warning !!!<br>It's highly recommended that you export your current passport before importing another one</span>
+                                    <button class="button-1" role="button" id="import-passport-button" onclick="importFullPassport()">Import Passport</button>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <p class="text-primary" id="np-welcome-text">
+            Welcome to the Nuzlocke Passport, where you can record and share your Nuzlocke exploits
+            with your friends and fans. Record your successful Nuzlockes, complete ruleset challenges, and increase your
+            Passport Rank so you can show off with your automatically generated Passport Trainer Card.
+        </p>
+
+        <div id="sprite-gender-container">
+            <label class="container">Male
+                <input type="radio" name="radio" value="male" id="male-radio-button-input" onclick="updateSpriteGender('male')">
+                <span class="checkmark" id="male-radio-button-span"></span>
+            </label>
+            <label class="container">Female
+                <input type="radio" name="radio" value="female" id="female-radio-button-input" onclick="updateSpriteGender('female')">
+                <span class="checkmark" id="female-radio-button-span"></span>
+            </label>
+        </div>
+
+        <div id="name_input_container">
+            <input type="text" class="input-text" id="name_text_input" placeholder="Name on Trainer Card" onchange="updateName()">
+        </div>
+
+        <div class="trainer_card_container" id="trainer_card">
+            <div id="passport_rank_image_container">
+                <img id="passport_rank_image" src="../static/images/rank_sprites/r0/female.png" alt="">
+            </div>
+
+            <img id="passport_tc_img" src="../static/images/trainer_cards/tc1_blank.png" alt="">
+            <h1 class="trainer_card_text" id="passport_name"></h1>
+            <h1 class="trainer_card_text" id="passport_title_label">Title:</h1>
+            <h1 class="trainer_card_text" id="passport_title">Preschooler</h1>
+            <h1 class="trainer_card_text" id="passport_rank_label">Rank:</h1>
+            <h1 class="trainer_card_text" id="passport_rank">0</h1>
+            <h1 class="trainer_card_text" id="passport_score_to_next_rank">Score To Next Rank: 0</h1>
+            <h1 class="trainer_card_text" id="complete_challenge_count">Challenges Complete: 0 / 0</h1>
+            <h1 class="trainer_card_text" id="passport_score">Passport Score: 0 / 0</h1>
+        </div>
+
+        <div>
+            <a class="page-anchor" id="gen1-anchor"></a>
+            <button type="button" class="collapsible-button-image-bg collapsible" id="gen1-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="red-version-anchor">Red/Blue/Yellow Version</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%201/Pokemon%20-%20Red%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%201/Pokemon%20-%20Blue%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%201/Pokemon%20-%20Yellow%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="rby_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="rby_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="rby_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="rby_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+
+            <a class="page-anchor" id="gen2-anchor"></a>
+            <button type="button" class="collapsible-button-image-bg collapsible" id="gen2-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="silver-version-anchor">Silver/Gold/Crystal Version</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%202/Pokemon%20-%20Silver%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%202/Pokemon%20-%20Gold%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%202/Pokemon%20-%20Crystal%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="sgc_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="sgc_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="sgc_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="sgc_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+
+            <a class="page-anchor" id="gen3-anchor"></a>
+            <button type="button" class="collapsible-button-image-bg collapsible" id="gen3-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="firered-version-anchor">FireRed/LeafGreen Version</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%203/Pokemon%20-%20FireRed%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%203/Pokemon%20-%20LeafGreen%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="frlg_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="frlg_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="frlg_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="frlg_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="ruby-version-anchor">Ruby/Sapphire/Emerald Version</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%203/Pokemon%20-%20Ruby%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%203/Pokemon%20-%20Sapphire%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%203/Pokemon%20-%20Emerald%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="rse_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="rse_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="rse_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="rse_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+
+            <a class="page-anchor" id="gen4-anchor"></a>
+            <button type="button" class="collapsible-button-image-bg collapsible" id="gen4-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="heartgold-version-anchor">HeartGold/SoulSilver Version</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%204/Pokemon%20-%20Heartgold%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%204/Pokemon%20-%20Soulsilver%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="hgss_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="hgss_calc_ball"  src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="hgss_hardcore_ball"  src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="hgss_deathless_ball"  src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="diamond-version-anchor">Diamond/Pearl/Platinum Version</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%204/Pokemon%20-%20Diamond%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%204/Pokemon%20-%20Pearl%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%204/Pokemon%20-%20Platinum%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="dpp_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="dpp_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="dpp_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="dpp_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+
+            <a class="page-anchor" id="gen5-anchor"></a>
+            <button type="button" class="collapsible-button-image-bg collapsible" id="gen5-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="black-version-anchor">Black/White Version</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%205/Pokemon%20-%20Black%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%205/Pokemon%20-%20White%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="bw_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="bw_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="bw_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="bw_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="black2-version-anchor">Black 2/White 2 Version</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%205/Pokemon%20-%20Black%202%20Version.png" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%205/Pokemon%20-%20White%202%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="b2w2_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="b2w2_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="b2w2_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="b2w2_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+
+            <a class="page-anchor" id="gen6-anchor"></a>
+            <button type="button" class="collapsible-button-image-bg collapsible" id="gen6-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="omega-ruby-version-anchor">Omega Ruby/Alpha Sapphire</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%206/Pokemon%20-%20Omega%20Ruby%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%206/Pokemon%20-%20Alpha%20Sapphire%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="oras_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="oras_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="oras_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="oras_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="x-version-anchor">X/Y</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%206/Pokemon%20-%20X%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%206/Pokemon%20-%20Y%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="xy_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="xy_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="xy_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="xy_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+
+            <a class="page-anchor" id="gen7-anchor"></a>
+            <button type="button" class="collapsible collapsible-button-image-bg" id="gen7-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="sun-version-anchor">Sun/Moon</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%207/Pokemon%20-%20Sun%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%207/Pokemon%20-%20Moon%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="sm_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="sm_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="sm_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="sm_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="ultra-sun-version-anchor">Ultra Sun/Ultra Moon</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%207/Pokemon%20-%20Ultra%20Sun%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%207/Pokemon%20-%20Ultra%20Moon%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="usum_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="usum_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="usum_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="usum_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+
+            <a class="page-anchor" id="gen8-anchor"></a>
+            <button type="button" class="collapsible collapsible-button-image-bg" id="gen8-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="brilliant-diamond-version-anchor">Brilliant Diamond/Shining Pearl</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%208/Pokemon%20-%20Brilliant%20Diamond%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%208/Pokemon%20-%20Shining%20Pearl%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="bdsp_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="bdsp_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="bdsp_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="bdsp_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="sword-version-anchor">Sword/Shield</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%208/Pokemon%20-%20Sword%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%208/Pokemon%20-%20Shield%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="swsh_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="swsh_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="swsh_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="swsh_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+
+            <a class="page-anchor" id="gen9-anchor"></a>
+            <button type="button" class="collapsible collapsible-button-image-bg" id="gen9-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="scarlet-version-anchor">Scarlet/Violet</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%209/Pokemon%20-%20Scarlet%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Gen%209/Pokemon%20-%20Violet%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="scvi_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="scvi_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="scvi_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="scvi_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+
+            <a class="page-anchor" id="spinoffs-anchor"></a>
+            <button type="button" class="collapsible collapsible-button-image-bg" id="spinoffs-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="colosseum-anchor">Colosseum</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/mainline/Spinoffs/Pokemon%20-%20Colosseum.png" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="col_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="col_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="col_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="col_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="xd-gale-of-darkness-anchor">XD - Gale of Darkness</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/mainline/Spinoffs/Pokemon%20-%20XD%20Gale%20of%20Darkness.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="xd_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="xd_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="xd_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="xd_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="lets-go-pikachu-anchor">Let's Go Pikachu/Eevee</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Spinoffs/Pokemon%20-%20Let's%20Go%20Pikachu%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/mainline/Spinoffs/Pokemon%20-%20Let's%20Go%20Eevee%20Version.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="lgpiev_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="lgpiev_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="lgpiev_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="lgpiev_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="legends-arceus-anchor">Legends Arceus</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/mainline/Spinoffs/Pokemon%20-%20Legends%20Arceus.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="legarc_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="legarc_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="legarc_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="legarc_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+
+            <a class="page-anchor" id="romhacks-anchor"></a>
+            <button type="button" class="collapsible collapsible-button-image-bg" id="romhacks-collapsible-button"></button>
+            <div class="collapsible-content">
+                <table class="passport-section">
+                    <tr>
+                        <th class="title-th"></th>
+                        <th class="img-th"></th>
+                        <th class="ball-th">Nuzlocke Completed</th>
+                        <th class="ball-th">No Calculator</th>
+                        <th class="ball-th">Hardcore</th>
+                        <th class="ball-th">Deathless</th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="blaze-black-anchor">Blaze Black/Volt White</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Blaze%20Black%20Version.png" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Volt%20White.png" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="bbvw_completed_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="bbvw_calc_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="bbvw_hardcore_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="bbvw_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="bbvw_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="blaze-black-2-anchor">Blaze Black 2/Volt White 2</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Blaze%20Black%202%20Version.jpg" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Volt%20White%202.jpg" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="bb2vw2_completed_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="bb2vw2_calc_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="bb2vw2_hardcore_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="bb2vw2_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="bb2vw2_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="blue-kaizo-anchor">Blue Kaizo</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Blue%20Kaizo.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="bk_completed_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="bk_calc_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="bk_hardcore_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="bk_hardcore_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="bk_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="bk_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="bk_deathless_ball3" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                     </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="crystal-kaizo-version-anchor">Crystal Kaizo</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Crystal%20Kaizo.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ck_completed_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ck_calc_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ck_hardcore_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="ck_hardcore_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ck_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="ck_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="ck_deathless_ball3" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="crystal-legacy-version-anchor">Crystal Legacy</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Crystal%20Legacy%20Version.png" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="cl_completed_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="cl_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="cl_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="cl_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="emerald-imperium-version-anchor">Emerald Imperium</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Emerald%20Imperium%20Version.png" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="ei_completed_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="ei_calc_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ei_hardcore_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ei_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="ei_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                     </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="emerald-kaizo-version-anchor">Emerald Kaizo</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Emerald%20Kaizo.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ek_completed_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ek_calc_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ek_hardcore_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="ek_hardcore_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ek_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="ek_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="ek_deathless_ball3" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="emerald-legacy-version-anchor">Emerald Legacy</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Emerald%20Legacy%20Version.png" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="el_completed_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="el_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="el_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="el_deathles_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="firered-omega-version-anchor">FireRed Omega</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Firered%20Omega%20Version.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="fro_completed_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="fro_calc_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="fro_hardcore_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="fro_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="fro_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="garbage-green-version-anchor">Garbage Green</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Garbage%20Green.png" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="gagr_completed_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="gagr_calc_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="gagr_hardcore_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="gagr_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="gagr_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="inclement-emerald-version-anchor">Inclement Emerald</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Inclement%20Emerald%20Version.png" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="ince_completed_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="ince_calc_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ince_hardcore_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="ince_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="ince_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="infinite-fusion-version-anchor">Infinite Fusion</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Infinite%20Fusion.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon pokeball" id="if_completed_ball" src="../static/images/icons/Pokeball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="if_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="if_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="if_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="nameless-firered-project-version-anchor">Nameless Firered Project</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Nameless%20FireRed%20Project.png" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="nafr_completed_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="nafr_calc_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="nafr_hardcore_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="nafr_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="nafr_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="radical-red-version-anchor">Radical Red</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Radical%20Red%20Version.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="radr_completed_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="radr_calc_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="radr_hardcore_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="radr_hardcore_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="radr_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="radr_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="radr_deathless_ball3" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="pokemon-reborn-version-anchor">Reborn</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Reborn.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="rebo_completed_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="rebo_calc_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="rebo_hardcore_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="rebo_hardcore_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="rebo_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="rebo_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="rebo_deathless_ball3" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="renegade-platinum-anchor">Renegade Platinum</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Renegade%20Platinum%20Version.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="renpl_completed_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="renpl_calc_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="renpl_hardcore_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="renpl_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="renpl_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="run-bun-version-anchor">Run & Bun</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Run%20and%20Bun%20Version.jpg" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="rab_completed_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="rab_calc_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="rab_hardcore_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="rab_hardcore_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="rab_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="rab_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="rab_deathless_ball3" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="sacred-gold-version-anchor">Sacred Gold/Storm Silver</a></th>
+                        <th>
+                            <img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Sacred%20Gold.png" alt="">
+                            <img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Storm%20Silver%20Version.png" alt="">
+                        </th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="sgss_completed_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="sgss_calc_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="sgss_hardcore_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="sgss_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="sgss_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                     </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="unbound-anchor">Unbound</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Unbound%20Version.png" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="unb_completed_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="unb_calc_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="unb_hardcore_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="unb_hardcore_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="unb_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="unb_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="unb_deathless_ball3" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="vintage-white-anchor">Vintage White</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Vintage%20White%20Version.png" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="vinw_completed_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="vinw_calc_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="vinw_hardcore_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="vinw_deathless_ball1" src="../static/images/icons/Masterball%20Icon.png" alt=""><img class="ball-icon masterball" id="vinw_deathless_ball2" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                    <tr>
+                        <th><a class="page-anchor" id="yellow-legacy-version-anchor">Yellow Legacy</a></th>
+                        <th><img class="game-box-art" src="../static/images/boxart/rom_hacks/Pokemon%20-%20Yellow%20Legacy%20Version.png" alt=""></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="yl_completed_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon greatball" id="yl_calc_ball" src="../static/images/icons/Greatball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon ultraball" id="yl_hardcore_ball" src="../static/images/icons/Ultraball%20Icon.png" alt=""></a></th>
+                        <th><a class="ball-icon-container"><img class="ball-icon masterball" id="yl_deathless_ball" src="../static/images/icons/Masterball%20Icon.png" alt=""></a></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="section-container row" id="floating-link-container">
+            <a href="mailto:nuzlockepassportadmin@proton.me?" target="_blank">
+                <div class="floating-link-icon-container">
+                    <img class="floating-link-icon" src="../static/images/svg/envelope-regular.svg" alt="">
+                </div>
+            </a>
+
+            <a href="https://www.twitch.tv/gabaontwitch" target="_blank">
+                <div class="floating-link-icon-container">
+                    <img class="floating-link-icon" src="../static/images/svg/twitch-icon.svg" alt="">
+                </div>
+            </a>
+
+            <a href="https://buymeacoffee.com/nuzlockepassport" target="_blank">
+                <div class="floating-link-icon-container">
+                    <img class="floating-link-icon" src="../static/images/svg/paper-cup.svg" alt="">
+                </div>
+            </a>
+        </div>
+
+        <a href="javascript:" id="return-to-top">
+            <div class="svg-container">
+                <img class="svg-icon" id="arrow-up-icon" src="../static/images/svg/up-arrow-svgrepo-com.svg" alt="">
+            </div>
+        </a>
+    </main>
+
+    <footer class="footer bg_dark">
+        <div class="footer-section" id="footer-copyright">
+            <p class="footer-text">Designed and Created By Jonathan Gaba (GabaOnTwitch) 2025</p>
+            <p class="footer-text">All Content and Design &copy; 2025 Nuzlocke Passport, All Rights Reserved</p>
+            <p class="footer-text">Pokémon images & names © 1995-2025 Nintendo/Creatures Inc./GAME FREAK inc. TM</p>
+        </div>
+    </footer>
+
+    <script src="../static/js/jquery-2.1.1.js"></script>
+    <script src="../static/js/html2canvas.js"></script>
+    <script src="../static/js/passport_utilities.js"></script>
+    <script src="../static/js/scroll-to-top-button.js"></script>
+    <script src="../static/js/collapsible.js"></script>
+</body>
+
+</html>

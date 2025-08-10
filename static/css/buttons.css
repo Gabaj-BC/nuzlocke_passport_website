@@ -1,0 +1,207 @@
+:root{
+    --primary-colour: #0091c9;
+    --accent-colour-light: #a7e6ff;
+    --background-colour-light: #f5f7fa;
+    --background-colour-dark: #444;
+    --icon-colour-light: #ebeff0;
+    --icon-colour-dark: #94a4a5;
+}
+
+/* Button 1 (Main Style) */
+.button-1 {
+    align-items: center;
+    appearance: none;
+    background-color: white;
+    border-radius: 1.5rem;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: var(--background-colour-dark);
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-size: 1rem;
+    font-weight: 750;
+    height: 5vh;
+    justify-content: center;
+    letter-spacing: 0.025rem;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 1vh 3vh;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    touch-action: manipulation;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+    margin-top: 2vh;
+}
+
+.button-wrapper{
+    margin: auto 2.5vw;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.button-1:hover {
+  background: #F6F9FE;
+  color: var(--primary-colour);
+}
+
+.button-1:active {
+  box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+  outline: none;
+    border: 2px solid #4285f4;
+}
+
+.button-1:not(:disabled) {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.button-1:not(:disabled):hover {
+  box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+}
+
+.button-1:not(:disabled):focus {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+.button-1:not(:disabled):active {
+  box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+}
+
+.button-1:disabled {
+  box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+}
+
+
+/* Specific Passport Button */
+.passport-button-container{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+
+.passport-button{
+    margin-top: 0;
+    margin-bottom: 2vh;
+}
+
+
+
+/* Return To Top Floating Button */
+#return-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #222;
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+#return-to-top i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 13px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+/* Return To Top */
+#arrow-up-icon{
+    height: 50%;
+}
+
+#return-to-top:hover {
+    background: #777;
+}
+
+
+/* Table Buttons */
+.collapsible-button-image-bg{
+    height: 15vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 0.1rem solid #333333 !important;
+}
+
+#gen1-collapsible-button{
+    background-image: url('../images/bg_art/Gen 1 Background Cropped-01.png');
+}
+
+#gen2-collapsible-button{
+    background-image: url('../images/bg_art/Gen 2 Background Cropped-01.png');
+}
+
+#gen3-collapsible-button{
+    background-image: url('../images/bg_art/Gen 3 Background Cropped-01.png');
+}
+
+#gen4-collapsible-button{
+    background-image: url('../images/bg_art/Gen 4 Background Cropped-01.png');
+}
+
+#gen5-collapsible-button{
+    background-image: url('../images/bg_art/Gen 5 Background Cropped-01.png');
+}
+
+#gen6-collapsible-button{
+    background-image: url('../images/bg_art/Gen 6 Background Cropped-01.png');
+}
+
+#gen7-collapsible-button{
+    background-image: url('../images/bg_art/Gen 7 Background Cropped-01.png');
+}
+
+#gen8-collapsible-button{
+    background-image: url('../images/bg_art/Gen 8 Background Cropped-01.png');
+}
+
+#gen9-collapsible-button{
+    background-image: url('../images/bg_art/Gen 9 Background Cropped-01.png');
+}
+
+#spinoffs-collapsible-button{
+    background-image: url('../images/bg_art/Spinoff Background Cropped-01.png');
+}
+
+#romhacks-collapsible-button{
+    background-image: url('../images/bg_art/Romhacks Background Cropped-01.png');
+}
+
+/* Other Buttons */
+#import_passport_file_select{
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-content: center;
+}
+
+#import-passport-button{
+    margin-bottom: 2vh;
+}

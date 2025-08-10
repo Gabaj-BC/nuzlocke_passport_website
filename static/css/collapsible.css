@@ -1,0 +1,30 @@
+/* CSS and HTML provided by: https://codeconvey.com/drop-down-navigation-menu-html/ */
+
+:root{
+    --background-colour-dark: #444;
+    --icon-colour-light: #ebeff0;
+}
+
+.collapsible {
+  background-color: var(--background-colour-dark);
+  color: var(--icon-colour-light);
+  cursor: pointer;
+  padding: 1vw;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 1.25rem;
+}
+
+.active, .collapsible:hover {
+  background-color: #222;
+}
+
+.collapsible-content {
+  padding: 0;
+  background-color: var(--background-colour-dark);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
